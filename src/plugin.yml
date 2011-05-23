@@ -1,0 +1,8 @@
+name: MineCombat
+main: strimy.bukkit.plugins.minecombat.MineCombat
+version: 0.1b
+
+commands:
+   combat: 
+       description: Configure the Combat plugin
+       usage: /combat survival|tdm|dm|config
