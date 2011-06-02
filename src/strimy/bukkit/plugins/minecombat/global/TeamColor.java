@@ -1,4 +1,4 @@
-package strimy.bukkit.plugins.global;
+package strimy.bukkit.plugins.minecombat.global;
 
 public enum TeamColor 
 {

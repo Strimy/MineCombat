@@ -22,8 +22,8 @@ public class TDMBlockListener extends BlockListener
 	}
 
 	@Override
-	public void onBlockPlace(BlockPlaceEvent event) {
-		// TODO Auto-generated method stub
+	public void onBlockPlace(BlockPlaceEvent event) 
+	{
 		super.onBlockPlace(event);
 	}
 

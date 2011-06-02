@@ -1,9 +1,10 @@
-package strimy.bukkit.plugins.global;
+package strimy.bukkit.plugins.minecombat.global;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -58,11 +59,7 @@ public class Team
 	{
 		for (Player p : players) 
 		{
-			if(!inventoryBackup.containsKey(p))
-			{
-				CombatInventory ci = CombatInventory.fromPlayer(p);
-				inventoryBackup.put(p, ci);
-			}
+			backupInventory(p, false);
 			
 			teamInventory.applyPlayerInventory(p);
 		}
@@ -80,7 +77,7 @@ public class Team
 	{
 		if(color != null)
 		{
-			teamInventory.setBoots(new ItemStack(Material.valueOf(color.toString()+"_BOOTS")));
+			teamInventory.setBoots(new ItemStack(Material.valueOf(color.toString()+"_BOOTS"), 1));
 			teamInventory.setChestplate(new ItemStack(Material.valueOf(color.toString()+"_CHESTPLATE")));
 			teamInventory.setHelmet(new ItemStack(Material.valueOf(color.toString()+"_HELMET")));
 			teamInventory.setLeggings(new ItemStack(Material.valueOf(color.toString()+"_LEGGINGS")));
@@ -101,13 +98,40 @@ public class Team
 	
 	public void joinPlayer(Player p)
 	{
-		if(!inventoryBackup.containsKey(p))
-		{
-			inventoryBackup.put(p, CombatInventory.fromPlayer(p));
-		}
+		backupInventory(p, false);
+		
 		if(!players.contains(p))
 			players.add(p);
-		p.sendMessage("You have joined the "+getColor().toString() + " team.");
+		
+		ChatColor c = ChatColor.GOLD;
+		if(getColor() == TeamColor.DIAMOND)
+		{
+			c = ChatColor.AQUA;
+		}
+		else if(getColor() == TeamColor.IRON)
+		{
+			c = ChatColor.GRAY;
+		}
+		else if(getColor() == TeamColor.LEATHER)
+		{
+			c = ChatColor.RED;
+		}
+		
+		p.sendMessage(c + "You have joined the "+getColor().toString() + " team.");
+	}
+	
+	private void backupInventory(Player p, boolean force)
+	{
+		if(force && inventoryBackup.containsKey(p)) 
+			inventoryBackup.remove(p);
+		
+		if(!inventoryBackup.containsKey(p))
+		{
+			CombatInventory ci = CombatInventory.fromPlayer(p);
+			ci.setBackup(true);
+			inventoryBackup.put(p, ci);
+		}
+
 	}
 	
 	public void clear()
