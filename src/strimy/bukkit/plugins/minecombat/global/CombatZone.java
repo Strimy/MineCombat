@@ -7,14 +7,27 @@ import org.bukkit.Location;
 
 public class CombatZone 
 {
-	private ArrayList<Location> points = new ArrayList<Location>();
+	private ArrayList<Point> points = new ArrayList<Point>();
+	
+	public ArrayList<Point> getPoints()
+	{
+		return points;
+	}
 	
 	public void addPoint(Location p)
+	{
+		Point newP = new Point();
+		newP.X = p.getX();
+		newP.Y = p.getZ();
+		points.add(newP);
+	}
+	
+	public void addPoint(Point p)
 	{
 		points.add(p);
 	}
 	
-	public void removePoint(Location p)
+	public void removePoint(Point p)
 	{
 		if(points.contains(p))
 		{
@@ -31,18 +44,9 @@ public class CombatZone
 	{
 		Point playerPoint = new Point();
 		playerPoint.X = p.getX();
-		playerPoint.Y = p.getY();
+		playerPoint.Y = p.getZ();
 		
-		List<Point> listPoint = new ArrayList<Point>();
-		for (Location lp : points) 
-		{
-			Point newPoint= new Point();
-			newPoint.X = lp.getX();
-			newPoint.Y = lp.getY();
-			listPoint.add(newPoint);
-		}
-		
-		return Math.abs(InsidePolygon(listPoint, playerPoint)) >= Math.PI;
+		return Math.abs(InsidePolygon(points, playerPoint)) >= Math.PI;
 	}
 	
     private double InsidePolygon(List<Point> polygon, Point p)

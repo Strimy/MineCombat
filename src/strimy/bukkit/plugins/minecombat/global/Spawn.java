@@ -7,9 +7,9 @@ public class Spawn
 	private String teamName;
 	private Location spawnPoint;
 	
-	public Spawn(String name) 
+	public Spawn() 
 	{
-		setTeamName(name);
+		
 	}
 
 	public String getTeamName() {

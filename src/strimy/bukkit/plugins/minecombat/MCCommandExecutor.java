@@ -6,6 +6,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import strimy.bukkit.plugins.minecombat.builder.BuilderMode;
+import strimy.bukkit.plugins.minecombat.global.Map;
 import strimy.bukkit.plugins.minecombat.interfaces.IMode;
 
 public class MCCommandExecutor implements CommandExecutor 
@@ -23,6 +25,18 @@ public class MCCommandExecutor implements CommandExecutor
 			if(args[0].equals("tdm"))
 			{				
 				MineCombat.Instance.addTeamDeathMatch(sender);
+				
+				return true;
+			}
+			else if(args[0].equals("maps"))
+			{
+				sender.sendMessage("Maps list : ");
+				int i = 0;
+				for (Map map : Map.getMaps()) 
+				{
+					sender.sendMessage(ChatColor.LIGHT_PURPLE + " "+ i++ +" / " +map.getName());
+					
+				}
 				
 				return true;
 			}
@@ -50,9 +64,19 @@ public class MCCommandExecutor implements CommandExecutor
 				}
 				return true;
 			}
-			else if(args[0].equals("boots"))
-			{
-				((Player)sender).getInventory().setBoots(null);
+			else if(args[0].equals("build"))
+			{				
+				if(sender instanceof Player)
+				{
+					try {
+						new BuilderMode((Player)sender);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				
+					return true;
+				}
 			}
 		}
 		

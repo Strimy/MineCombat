@@ -9,6 +9,7 @@ import org.bukkit.event.Event.Type;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import strimy.bukkit.plugins.minecombat.global.Map;
 import strimy.bukkit.plugins.minecombat.interfaces.IMode;
 import strimy.bukkit.plugins.minecombat.listeners.GlobalEntityListener;
 import strimy.bukkit.plugins.minecombat.listeners.GlobalPlayerListener;
@@ -33,8 +34,8 @@ public class MineCombat extends JavaPlugin
 	public void onEnable() 
 	{
 		Instance = this;
-		
 		getCommand("combat").setExecutor(new MCCommandExecutor(this));
+		Map.loadMaps();
 		
 		PluginManager pm = getServer().getPluginManager();
 		ArrayList<Type> disabledTypes = new ArrayList<Type>();

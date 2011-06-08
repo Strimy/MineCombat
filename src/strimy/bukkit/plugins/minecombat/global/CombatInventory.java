@@ -82,22 +82,40 @@ public class CombatInventory
 		PlayerInventory pi = p.getInventory();
 		pi.clear();
 		
-		pi.setContents(this.getItems());
+		
 		
 		if(!isBackup())
 		{
-			pi.setBoots(new ItemStack(this.getBoots().getType(), 1));
-			pi.setChestplate(new ItemStack(this.getChestplate().getType(), 1));
-			pi.setHelmet(new ItemStack(this.getHelmet().getType(), 1));
-			pi.setLeggings(new ItemStack(this.getLeggings().getType(), 1));
+			pi.setContents(getItems());
+			
+			if(getBoots() != null)
+				pi.setBoots(new ItemStack(this.getBoots().getType(), 1));
+
+			if(getChestplate() != null)
+				pi.setChestplate(new ItemStack(this.getChestplate().getType(), 1));
+			
+			if(getHelmet() != null)
+				pi.setHelmet(new ItemStack(this.getHelmet().getType(), 1));
+			
+			if(getLeggings() != null)
+				pi.setLeggings(new ItemStack(this.getLeggings().getType(), 1));
 		}
 		else
 		{
 			System.out.print("Using Backup inventory");
-			pi.setBoots(this.getBoots());
-			pi.setChestplate(this.getChestplate());
-			pi.setHelmet(this.getHelmet());
-			pi.setLeggings(this.getLeggings());
+			pi.setContents(this.getItems());
+			
+			if(getBoots() != null)
+				pi.setBoots(this.getBoots());
+			
+			if(getChestplate() != null)
+				pi.setChestplate(this.getChestplate());
+			
+			if(getHelmet() != null)
+				pi.setHelmet(this.getHelmet());
+			
+			if(getLeggings() != null)
+				pi.setLeggings(this.getLeggings());
 		}
 	}
 	

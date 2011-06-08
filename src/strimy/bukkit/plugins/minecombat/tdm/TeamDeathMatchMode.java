@@ -15,6 +15,7 @@ import org.bukkit.plugin.PluginLoader;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import strimy.bukkit.plugins.minecombat.MineCombat;
+import strimy.bukkit.plugins.minecombat.global.Map;
 import strimy.bukkit.plugins.minecombat.global.Team;
 import strimy.bukkit.plugins.minecombat.global.TeamColor;
 import strimy.bukkit.plugins.minecombat.interfaces.IMode;
@@ -30,6 +31,7 @@ public class TeamDeathMatchMode extends JavaPlugin implements IMode
 	private HashMap<Player, Team> player2Team = new HashMap<Player, Team>();
 	private TeamDeathMatchConfiguration config;
 	private CommandSender instanceAdmin;
+	private Map currentMap;
 	
 	private PlayerListener pl;
 	private EntityListener el;
@@ -238,5 +240,21 @@ public class TeamDeathMatchMode extends JavaPlugin implements IMode
 
 	public TDMState getState() {
 		return state;
+	}
+
+	public void setCurrentMap(Map currentMap) 
+	{
+		for (Player p : listPlayers) 
+		{
+			p.sendMessage(ChatColor.DARK_AQUA + "Map has changed to "+ currentMap);
+			p.teleport((currentMap.getSpawns().get(0).getSpawnPoint()));
+		}
+		this.currentMap = currentMap;
+		
+		
+	}
+
+	public Map getCurrentMap() {
+		return currentMap;
 	}
 }

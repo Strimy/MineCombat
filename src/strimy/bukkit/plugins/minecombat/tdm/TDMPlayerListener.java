@@ -9,6 +9,8 @@ import org.bukkit.event.player.PlayerListener;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import strimy.bukkit.plugins.minecombat.global.Map;
+
 public class TDMPlayerListener extends PlayerListener 
 {
 	TeamDeathMatchMode plugin;
@@ -54,6 +56,20 @@ public class TDMPlayerListener extends PlayerListener
 			{
 				if(hasRights(event.getPlayer()))
 					plugin.start();
+			}
+			else if(args[0].equals("map"))
+			{
+				if(args.length == 2)
+				{
+					for (Map map : Map.getMaps()) 
+					{
+						if(map.getName().equals(args[1]))
+						{
+							plugin.setCurrentMap(map);
+							break;
+						}
+					}
+				}
 			}
 			else if(args[0].equals("start"))
 			{
